@@ -3,16 +3,28 @@ import os
 import shutil
 PORT="8080"
 from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
 upload_folder = "uploads"
+
+
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-
+async def main():
+    content = """
+    <body>
+    <form action="/files/" enctype="multipart/form-data" method="post">
+    <input name="files" type="file" multiple>
+    <input type="submit">
+    </form>
+    <form action="/uploadfile/" enctype="multipart/form-data" method="post">
+    <input name="file" type="file" accept="image/png, image/jpeg">
+    <input type="submit">
+    </form>
+    </body>
+    """
+    return HTMLResponse(content=content)
 
 
 @app.post("/files/")
