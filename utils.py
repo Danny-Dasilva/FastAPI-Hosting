@@ -28,3 +28,13 @@ def handle_upload_file(
         handler(tmp_path)  # Do something with the saved temp file
     finally:
         tmp_path.unlink()  # Delete the temp file
+
+
+
+with destination.open("wb") as buffer:
+    shutil.copyfileobj(upload_file.file, buffer)
+
+
+uploaded_file.file.seek(0)  # <-- This.
+with destination.open("wb") as buffer:
+    shutil.copyfileobj(upload_file.file, buffer)
