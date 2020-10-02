@@ -38,3 +38,21 @@ with destination.open("wb") as buffer:
 uploaded_file.file.seek(0)  # <-- This.
 with destination.open("wb") as buffer:
     shutil.copyfileobj(upload_file.file, buffer)
+
+
+## Dont use / starlette streaming response
+from starlette.responses import StreamingResponse
+import asyncio
+
+async def slow_numbers(minimum, maximum):
+    yield('<html><body><ul>')
+    for number in range(minimum + maximum +1):
+        yield f"<li>%{number}</li>"
+        await asyncio.sleep(0.5)
+    yield('</ul></body></html>')
+
+async def app(scope, receive, send):
+    assert scope['type'] == 'http'
+    generatpr = slow_numbers(1, 10)
+    response = StreamingResponse(generator, media_type='test/html')
+    await responce(scope, receive, send)
