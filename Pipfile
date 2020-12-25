@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flake8 = "*"
+flake8-isort = "*"
+flake8-tidy-imports = "*"
+mypy = "*"
+pep8-naming = "*"
+psutil = "*"
+pytest-cov = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
